@@ -95,3 +95,22 @@ function showToast(message) {
     toast.classList.remove('show');
   }, 2800);
 }
+let lastScrollTop = 0;
+const rail = document.querySelector('.rail');
+const scrollThreshold = 50; // Minimum scroll distance before triggering
+
+window.addEventListener('scroll', () => {
+  if (!rail) return;
+
+  let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+  if (currentScroll > lastScrollTop && currentScroll > scrollThreshold) {
+    // Scrolling down -> hide nav
+    rail.classList.add('hidden');
+  } else {
+    // Scrolling up -> show nav
+    rail.classList.remove('hidden');
+  }
+
+  lastScrollTop = Math.max(0, currentScroll); // For Mobile momentum scrolling
+}, { passive: true });
