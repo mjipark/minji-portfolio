@@ -1,183 +1,289 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minji Park — Art &amp; Technology and Computer Science</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=3">
-<style>
-  /* --- Text Entrance Animations --- */
-  @keyframes fadeInUp {
-    from {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minji Park — Art &amp; Technology and Computer Science</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=3">
+  <style>
+    /* --- Text Entrance Animations --- */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero>* {
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       opacity: 0;
-      transform: translateY(20px);
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
-  .hero > * {
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    opacity: 0;
-  }
-  .hero .status-pill { animation-delay: 0.1s; }
-  .hero h1 { animation-delay: 0.2s; }
-  .hero .korean-name { animation-delay: 0.3s; }
-  .hero .hero-bio { animation-delay: 0.4s; }
-  .hero .keyword-pills { animation-delay: 0.5s; }
+    .hero .status-pill {
+      animation-delay: 0.1s;
+    }
 
-  /* --- Responsive Rail / Nav & Footer Adjustments --- */
-  @media (max-width: 900px) {
-    .wrap {
-      flex-direction: column;
-      padding: 16px;
+    .hero h1 {
+      animation-delay: 0.2s;
     }
-    .rail {
-      position: relative !important;
-      width: 100% !important;
-      height: auto !important;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      margin-bottom: 24px;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
-      border: 2px solid var(--ink);
-      border-radius: 8px;
+
+    .hero .korean-name {
+      animation-delay: 0.3s;
     }
-    .rail nav {
+
+    .hero .hero-bio {
+      animation-delay: 0.4s;
+    }
+
+    .hero .keyword-pills {
+      animation-delay: 0.5s;
+    }
+
+    /* --- Responsive Rail / Nav & Footer Adjustments --- */
+    @media (max-width: 900px) {
+      .wrap {
+        flex-direction: column;
+        padding: 16px;
+      }
+
+      .rail {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        margin-bottom: 24px;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border: 2px solid var(--ink);
+        border-radius: 8px;
+      }
+
+      .rail nav {
+        display: flex;
+        gap: 12px;
+      }
+
+      .rail-foot {
+        display: none;
+        /* Hide sidebar footer on mobile, use main footer */
+      }
+    }
+
+    /* Footer responsiveness */
+    .footer-inner {
       display: flex;
-      gap: 12px;
+      flex-direction: column;
+      gap: 24px;
     }
-    .rail-foot {
-      display: none; /* Hide sidebar footer on mobile, use main footer */
-    }
-  }
 
-  /* Footer responsiveness */
-  .footer-inner {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  .footer-top {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 32px;
-  }
-  .footer-links-grid {
-    display: flex;
-    gap: 48px;
-    flex-wrap: wrap;
-  }
-</style>
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .footer-links-grid {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+  </style>
 </head>
+
 <body>
 
-<canvas id="gradient-mesh-canvas"></canvas>
+  <canvas id="gradient-mesh-canvas"></canvas>
 
-<div class="scroll-progress" id="scrollProgress"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
 
-<div class="wrap">
-  <header class="rail">
-    <div class="rail-left">
-      <a class="mark" href="index.html">MP</a>
-      <nav>
-        <a href="#work">Selected Work</a>
-        <a href="#experience">Experience</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-    <div class="rail-foot">
-      Seoul, South Korea<br>
-      <a href="mailto:minjip0810@gmail.com">Email</a> · <a href="https://linkedin.com/in/minjipark-profile" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="status-pill">
-        <span class="status-dot"></span>
-        Available for research &amp; creative tech projects
+  <div class="wrap">
+    <header class="rail">
+      <div class="rail-left">
+        <a class="mark" href="index.html">MP</a>
+        <nav>
+          <a href="#work">Selected Work</a>
+          <a href="#experience">Experience</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </nav>
       </div>
-
-      <h1>Minji Park</h1>
-      <p class="korean-name">박민지</p>
-
-      <p class="hero-bio">
-        Fourth-year at Sogang University, double-majoring in Art &amp; Technology and Computer Science — building at the intersection of data, machine learning, and creative technology.
-      </p>
-
-      <div class="keyword-pills">
-        <span class="pill">Sogang University</span>
-        <span class="pill">Art &amp; Technology / CS</span>
-        <span class="pill">Claude API</span>
-        <span class="pill">Python · scikit-learn</span>
-        <span class="pill">Three.js</span>
+      <div class="rail-foot">
+        Seoul, South Korea<br>
+        <a href="mailto:mj.minjipark@gmail.com">Email</a> · <a href="https://linkedin.com/in/minjipark-profile"
+          target="_blank" rel="noopener">LinkedIn</a>
       </div>
-    </section>
+    </header>
 
-    <!-- Selected Work Section -->
-    <section id="work" class="section">
-      <h2 class="section-title">Selected Work</h2>
-      <div class="work-grid">
-        <a href="projects/atc-exhibition.html" class="work-card">
-          <div class="work-card-img">
-            <div class="image-slot"><p class="placeholder-text">ATC Exhibition Preview</p></div>
-          </div>
-          <div class="work-card-body">
-            <span class="work-tag">2025 · Figma · Team Project</span>
-            <h3>ATC Exhibition — Interactive AI Site</h3>
-            <p>A meditation-themed interactive website exhibited at the Art &amp; Technology Center, featuring a watercolor gallery and an interactive wish-making space.</p>
-          </div>
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a href="index.html" class="footer-mark">Minji Park · 박민지</a>
-          <p>Sogang University · Art &amp; Technology and Computer Science. Building at the intersection of data, ML, and creative technology.</p>
+    <main>
+      <section class="hero">
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          Available for research &amp; creative tech projects
         </div>
-        <div class="footer-links-grid">
-          <div class="footer-col">
-            <h4>Connect</h4>
-            <ul>
-              <li><a href="mailto:minjip0810@gmail.com">Email</a></li>
-              <li><a href="https://linkedin.com/in/minjipark-profile" target="_blank" rel="noopener">LinkedIn</a></li>
-              <li><a href="https://github.com/mjipark" target="_blank" rel="noopener">GitHub</a></li>
-            </ul>
+
+        <h1>Minji Park</h1>
+        <p class="korean-name">박민지</p>
+
+        <p class="hero-bio">
+          Fourth-year at Sogang University, double-majoring in Art &amp; Technology and Computer Science — building at
+          the intersection of data, machine learning, and creative technology.
+        </p>
+
+        <div class="keyword-pills">
+          <span class="pill">Sogang University</span>
+          <span class="pill">Art &amp; Technology / CS</span>
+          <span class="pill">Claude API</span>
+          <span class="pill">Python · scikit-learn</span>
+          <span class="pill">Three.js</span>
+        </div>
+      </section>
+
+      <!-- Selected Work Section -->
+      <!-- Selected Work Section -->
+      <section id="work" class="section">
+        <h2 class="section-title">Selected Work</h2>
+
+        <!-- Filter category buttons if you're using them -->
+        <div class="work-filters" style="display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;">
+          <button class="pill active" style="cursor: pointer;">All Projects</button>
+          <button class="pill" style="cursor: pointer;">AI &amp; 3D</button>
+          <button class="pill" style="cursor: pointer;">Web &amp; PWA</button>
+          <button class="pill" style="cursor: pointer;">Exhibition &amp; UI</button>
+        </div>
+
+        <!-- Multi-Column Grid Layout -->
+        <div class="work-grid"
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+
+          <!-- Project 1: Luma Reef -->
+          <a href="projects/luma-reef.html" class="work-card"
+            style="display: flex; flex-direction: column; background: rgba(255, 255, 255, 0.75); border: 2px solid var(--ink); border-radius: 12px; padding: 24px; text-decoration: none; color: var(--ink); box-shadow: 4px 4px 0px var(--ink); transition: transform 0.15s ease, box-shadow 0.15s ease;">
+            <div
+              style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--taupe); margin-bottom: 8px;">
+              2025</div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <h3 style="font-family: 'Fraunces', serif; font-size: 22px; margin: 0; color: var(--ink);">LUMA REEF</h3>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px;">&rarr;</span>
+            </div>
+            <div
+              style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--orange-deep); margin-bottom: 12px;">
+              Three.js · Claude API · Sentiment Analysis</div>
+            <p
+              style="font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 16px 0;">
+              A procedural 3D reef ecosystem that visually evolves based on sentiment-analyzed journal entries, with a
+              fish companion chat powered by the Claude API.</p>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto;">
+              <span class="pill" style="font-size: 11px; padding: 2px 8px;">Three.js</span>
+              <span class="pill" style="font-size: 11px; padding: 2px 8px;">Claude API</span>
+              <span class="pill" style="font-size: 11px; padding: 2px 8px;">Sentiment Analysis</span>
+            </div>
+          </a>
+
+          <!-- Project 2: NutriTrack -->
+          <a href="projects/nutritrack.html" class="work-card"
+            style="display: flex; flex-direction: column; background: rgba(255, 255, 255, 0.75); border: 2px solid var(--ink); border-radius: 12px; padding: 24px; text-decoration: none; color: var(--ink); box-shadow: 4px 4px 0px var(--ink); transition: transform 0.15s ease, box-shadow 0.15s ease;">
+            <div
+              style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--taupe); margin-bottom: 8px;">
+              2025</div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <h3 style="font-family: 'Fraunces', serif; font-size: 22px; margin: 0; color: var(--ink);">NutriTrack</h3>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px;">&rarr;</span>
+            </div>
+            <div
+              style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--orange-deep); margin-bottom: 12px;">
+              Vanilla JS · PWA · localStorage</div>
+            <p
+              style="font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 16px 0;">
+              A personal health-tracking Progressive Web App for nutrition, BMI, and step tracking, including a
+              rule-based Korean-language AI diet consultant — no backend required.</p>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto;">
+              <span class="pill" style="font-size: 11px; padding: 2px 8px;">Vanilla JS</span>
+              <span class="pill" style="font-size: 11px; padding: 2px 8px;">PWA</span>
+              <span class="pill" style="font-size: 11px; padding: 2px 8px;">Rule Engine</span>
+            </div>
+          </a>
+
+          <!-- Project 3: ATC Exhibition (From previous setup) -->
+          <a href="projects/atc-exhibition.html" class="work-card"
+            style="display: flex; flex-direction: column; background: rgba(255, 255, 255, 0.75); border: 2px solid var(--ink); border-radius: 12px; padding: 24px; text-decoration: none; color: var(--ink); box-shadow: 4px 4px 0px var(--ink); transition: transform 0.15s ease, box-shadow 0.15s ease;">
+            <div
+              style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--taupe); margin-bottom: 8px;">
+              2025</div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <h3 style="font-family: 'Fraunces', serif; font-size: 22px; margin: 0; color: var(--ink);">ATC Exhibition
+              </h3>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px;">&rarr;</span>
+            </div>
+            <div
+              style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--orange-deep); margin-bottom: 12px;">
+              Figma · Team Project</div>
+            <p
+              style="font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 16px 0;">
+              A meditation-themed interactive website exhibited at the Art &amp; Technology Center, featuring a
+              watercolor gallery and an interactive wish-making space.</p>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto;">
+              <span class="pill" style="font-size: 11px; padding: 2px 8px;">Figma</span>
+              <span class="pill" style="font-size: 11px; padding: 2px 8px;">Team Project</span>
+            </div>
+          </a>
+
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="index.html" class="footer-mark">Minji Park · 박민지</a>
+            <p>Sogang University · Art &amp; Technology and Computer Science. Building at the intersection of data, ML,
+              and creative technology.</p>
           </div>
-          <div class="footer-col">
-            <h4>Navigation</h4>
-            <ul>
-              <li><a href="#work">Selected Work</a></li>
-              <li><a href="#experience">Experience</a></li>
-              <li><a href="#skills">Skills</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
+          <div class="footer-links-grid">
+            <div class="footer-col">
+              <h4>Connect</h4>
+              <ul>
+                <li><a href="mailto:minjip0810@gmail.com">Email</a></li>
+                <li><a href="https://linkedin.com/in/minjipark-profile" target="_blank" rel="noopener">LinkedIn</a></li>
+                <li><a href="https://github.com/mjipark" target="_blank" rel="noopener">GitHub</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Navigation</h4>
+              <ul>
+                <li><a href="#work">Selected Work</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+              </ul>
+            </div>
           </div>
         </div>
+        <div class="footer-bottom"
+          style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+          <div>© 2026 Minji Park. All rights reserved. · Seoul, South Korea</div>
+          <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to top ↑</button>
+        </div>
       </div>
-      <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-        <div>© 2026 Minji Park. All rights reserved. · Seoul, South Korea</div>
-        <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to top ↑</button>
-      </div>
-    </div>
-  </footer>
-</div>
+    </footer>
+  </div>
 
-<script src="script.js?v=3"></script>
-<script src="gradient-mesh.js?v=3"></script>
+  <script src="script.js?v=3"></script>
+  <script src="gradient-mesh.js?v=3"></script>
 </body>
+
 </html>
