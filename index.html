@@ -24,6 +24,7 @@
       --orange-deep: #b84c24;
       --orange-soft: #f4be9b;
       --line: rgba(210, 190, 170, 0.35);
+      --sidebar-width: 240px;
     }
 
     * {
@@ -47,6 +48,9 @@
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
     a {
@@ -60,13 +64,23 @@
       margin: 0 auto;
       padding: 40px 32px;
       gap: 60px;
+      width: 100%;
+      flex: 1;
+      transition: margin-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-left: var(--sidebar-width);
+    }
+
+    body.sidebar-collapsed .wrap {
+      margin-left: 0;
+      justify-content: center;
     }
 
     /* Fixed/Sticky Sidebar Rail */
     .rail {
-      position: sticky;
+      position: fixed;
       top: 40px;
-      width: 240px;
+      left: max(0px, calc((100% - 1200px) / 2 + 32px));
+      width: var(--sidebar-width);
       height: calc(100vh - 80px);
       display: flex;
       flex-direction: column;
@@ -79,6 +93,41 @@
       border-radius: 16px;
       padding: 24px;
       box-shadow: var(--glass-shadow);
+      z-index: 10;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body.sidebar-collapsed .rail {
+      transform: translateX(calc(-1 * (var(--sidebar-width) + 40px)));
+    }
+
+    /* Toggle Button Styling */
+    #sidebar-toggle {
+      position: absolute;
+      top: 24px;
+      right: -36px;
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--glass-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      transition: transform 0.3s ease, background 0.2s ease;
+      z-index: 11;
+      color: var(--ink-soft);
+    }
+
+    #sidebar-toggle:hover {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--orange-deep);
+    }
+
+    body.sidebar-collapsed #sidebar-toggle svg {
+      transform: rotate(180deg);
     }
 
     .rail-left {
@@ -460,19 +509,30 @@
 
     /* Responsive Design */
     @media (max-width: 900px) {
+      body {
+        display: block;
+      }
+
       .wrap {
         flex-direction: column;
         padding: 20px;
         gap: 24px;
+        margin-left: 0 !important;
       }
 
       .rail {
         position: relative;
         width: 100%;
+        left: 0;
         height: auto;
         flex-direction: row;
         align-items: center;
         padding: 16px 20px;
+        transform: none !important;
+      }
+
+      #sidebar-toggle {
+        display: none;
       }
 
       .rail-left {
@@ -508,7 +568,13 @@
 
   <div class="wrap">
     <!-- Sidebar Navigation Rail -->
-    <header class="rail">
+    <header class="rail" id="sidebar">
+      <button id="sidebar-toggle" aria-label="Toggle Sidebar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
       <div class="rail-left">
         <a class="mark" href="#">MP</a>
         <nav>
@@ -716,6 +782,23 @@
     </main>
   </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleBtn = document.getElementById('sidebar-toggle');
+      if (!toggleBtn) return;
+
+      // Restore previous state if saved
+      if (localStorage.getItem('sidebarCollapsed') === 'true') {
+        document.body.classList.add('sidebar-collapsed');
+      }
+
+      toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('sidebar-collapsed');
+        const isCollapsed = document.body.classList.contains('sidebar-collapsed');
+        localStorage.setItem('sidebarCollapsed', isCollapsed);
+      });
+    });
+  </script>
 </body>
 
 </html>
