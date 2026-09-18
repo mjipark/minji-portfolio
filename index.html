@@ -385,12 +385,14 @@ document.addEventListener('DOMContentLoaded', async function() {
 <script type="importmap">
 {
   "imports": {
-    "react": "https://cdn.jsdelivr.net/npm/react@18.3.1/+esm",
-    "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/+esm",
-    "react-dom/client": "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/+esm",
-    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/+esm",
-    "@react-three/fiber": "https://cdn.jsdelivr.net/npm/@react-three/fiber@8.18.0/+esm",
-    "@react-three/drei": "https://cdn.jsdelivr.net/npm/@react-three/drei@9.122.0/+esm"
+    "react": "https://esm.sh/react@18.3.1",
+    "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+    "react/jsx-dev-runtime": "https://esm.sh/react@18.3.1/jsx-dev-runtime",
+    "react-dom": "https://esm.sh/react-dom@18.3.1",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+    "three": "https://esm.sh/three@0.169.0",
+    "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.18.0?external=react,react-dom,three",
+    "@react-three/drei": "https://esm.sh/@react-three/drei@9.122.0?external=react,react-dom,three,@react-three/fiber"
   }
 }
 </script>
